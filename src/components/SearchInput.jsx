@@ -29,7 +29,7 @@ export default function SearchInput({ type }) {
     if (value.length > 2) {
       getShowsDebounced({
         type,
-        searchValue: value,
+        searchValue: value.trim(),
         searchByPhrase: byPhrase,
       });
     }
