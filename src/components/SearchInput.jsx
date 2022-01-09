@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Label, Input } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
@@ -21,7 +21,7 @@ export default function SearchInput({ type }) {
       search: searchValue,
       searchByPhrase,
     }));
-  }, 1000), []);
+  }, 500), []);
 
   const onInputChange = (e) => {
     const { value } = e.target;
@@ -40,42 +40,50 @@ export default function SearchInput({ type }) {
 
   const onCheckboxChanged = () => {
     setByPhrase(!byPhrase);
-    dispatch(getShows({
-      type,
-      search,
-      searchByPhrase: !byPhrase,
-    }));
+    if (search.length > 2) {
+      dispatch(getShows({
+        type,
+        search,
+        searchByPhrase: !byPhrase,
+      }));
+    }
   };
+
+  useEffect(() => setSearch(''), [type]);
 
   return (
     <div>
-      <Label
-        className="me-sm-2"
-        for="searchInput"
-      >
-        Search
-      </Label>
-      <Input
-        id="searchInput"
-        name="search"
-        placeholder="Forrest Gump"
-        type="text"
-        onChange={onInputChange}
-        value={search}
-      />
-      <Label
-        className="me-sm-2"
-        for="searchInput"
-      >
-        Search by phrase
-      </Label>
-      <Input
-        id="searchByPhrate"
-        name="phrate"
-        type="checkbox"
-        onChange={onCheckboxChanged}
-        checked={byPhrase}
-      />
+      <div>
+        <Label
+          className="me-sm-2"
+          for="searchInput"
+        >
+          Search
+        </Label>
+        <Input
+          id="searchInput"
+          name="search"
+          placeholder="Forrest Gump"
+          type="text"
+          onChange={onInputChange}
+          value={search}
+        />
+      </div>
+      <div className="pt-2">
+        <Label
+          className="me-sm-2"
+          for="searchInput"
+        >
+          Search by phrase
+        </Label>
+        <Input
+          id="searchByPhrate"
+          name="phrate"
+          type="checkbox"
+          onChange={onCheckboxChanged}
+          checked={byPhrase}
+        />
+      </div>
     </div>
   );
 }
