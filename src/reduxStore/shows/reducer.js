@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   loading: false,
   shows: [],
-  error: null
+  error: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {

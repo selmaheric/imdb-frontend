@@ -7,8 +7,8 @@ import rootReducer from './rootReducer';
 const middlewares = [thunk];
 
 const store = createStore(
-   rootReducer,
-   applyMiddleware(...middlewares)
+  rootReducer,
+  applyMiddleware(...middlewares),
   //  composeWithDevTools(applyMiddleware(...middlewares))
 );
 

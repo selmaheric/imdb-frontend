@@ -1,13 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Container } from "reactstrap";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router, Routes, Route, Navigate,
+} from 'react-router-dom';
+import { Container } from 'reactstrap';
 
-import HomePage from "./containers/HomePage";
-import LoginPage from "./containers/LoginPage";
+import HomePage from './containers/HomePage';
+import LoginPage from './containers/LoginPage';
 
 import './App.css';
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser  } from './reduxStore/auth/actions';
+
+import { loginUser } from './reduxStore/auth/actions';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,8 +18,8 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    dispatch(loginUser())
-    }, []);
+    dispatch(loginUser());
+  }, []);
 
   return (
     <Container className="App">
