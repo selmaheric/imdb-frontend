@@ -65,7 +65,7 @@ export default function ShowsComponent({ type }) {
         ))
       }
       </Row>
-      {pagination.totalPages !== pagination.page && (
+      {!!shows.length && pagination.totalPages !== pagination.page && (
       <Row className="mb-5">
         <Button onClick={onLoadMore}>Load More</Button>
       </Row>
