@@ -3,11 +3,12 @@ import {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Card, CardImg, CardBody, CardTitle, CardText, Button, Label, Input, Row, Col,
+  Card, CardImg, CardBody, CardTitle, CardText, Label, Input, Row, Col,
 } from 'reactstrap';
+import StarRatings from 'react-star-ratings';
 import _ from 'lodash';
 
-import { cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
+import { addRating, cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ export default function HomePage() {
       search,
       searchByPhrase: !byPhrase,
     }));
+  };
+
+  const onRatingChanged = (id, rating) => {
+    dispatch(addRating({ id, rating }));
   };
 
   useEffect(() => {
@@ -89,9 +94,18 @@ export default function HomePage() {
             <Card className="mb-5 mt-5">
               <CardImg top width="100%" src={`../assets/posters/${show.cover_image}`} alt={show.title} />
               <CardBody>
-                <CardTitle>{show.title}</CardTitle>
-                <CardText>{show.description}</CardText>
-                <Button>Button</Button>
+                <CardTitle><h3>{show.title}</h3></CardTitle>
+                <CardText className="mt-3">{show.description}</CardText>
+                <StarRatings
+                  rating={+show.average_rating}
+                  starRatedColor="gold"
+                  changeRating={(value) => onRatingChanged(show.id, value)}
+                  numberOfStars={5}
+                  name="rating"
+                  starDimension="30px"
+                  starSpacing="3px"
+
+                />
               </CardBody>
             </Card>
           </Col>

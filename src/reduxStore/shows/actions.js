@@ -40,3 +40,27 @@ export const getShows = (params = {}) => async (dispatch) => {
     }
   }
 };
+
+export const addRating = ({ rating, id }) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `/shows/${id}/add-rating`,
+      {
+        rating,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    console.log(response);
+
+    dispatch({
+      type: 'ADD_RATING_SUCCESS',
+    });
+  } catch (error) {
+    dispatch({
+      type: 'ADD_RATING_ERROR',
+    });
+  }
+};
