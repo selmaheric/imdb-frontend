@@ -14,6 +14,8 @@ import './App.css';
 import { getMe } from './reduxStore/auth/actions';
 import ErrorHandler from './containers/ErrorHandler';
 import LoginError from './containers/LoginError';
+import RateMovies from './containers/RateMovies';
+import RateShows from './containers/RateShows';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/rate-movies" element={<RateMovies />} />
+          <Route path="/rate-shows" element={<RateShows />} />
           <Route
             path="/login"
             exact

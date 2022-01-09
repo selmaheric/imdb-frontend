@@ -12,13 +12,16 @@ export const getShows = (params = {}) => async (dispatch) => {
     dispatch({
       type: 'GET_SHOWS_REQUEST',
     });
-    const { type, search, searchByPhrase } = params;
+    const {
+      type, search, searchByPhrase, limit,
+    } = params;
     const response = await axios.get('/shows', {
       cancelToken: source.token,
       params: {
         type,
         search,
         searchByPhrase,
+        limit: limit || 10,
       },
       withCredentials: true,
     });

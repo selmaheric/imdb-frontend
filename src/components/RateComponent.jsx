@@ -7,25 +7,28 @@ import {
   CardText,
   Row,
   Col,
-  Button,
 } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getMoreShows, getShows } from '../reduxStore/shows/actions';
-import SearchInput from './SearchInput';
+import { addRating, getShows } from '../reduxStore/shows/actions';
 
-export default function ShowsComponent({ type }) {
+export default function RateComponent({ type }) {
   const dispatch = useDispatch();
 
-  const { shows, pagination } = useSelector((state) => state.shows);
+  const { shows } = useSelector((state) => state.shows);
+  const { user } = useSelector((state) => state.auth);
 
-  const onLoadMore = () => {
-    dispatch(getMoreShows({ type }));
+  const onRatingChanged = (id, rating) => {
+    if (user) {
+      dispatch(addRating({ id, rating }));
+    } else {
+      window.alert('If you want to rate a movie or a tv show please login first!');
+    }
   };
 
   useEffect(() => {
-    dispatch(getShows({ type }));
+    dispatch(getShows({ type, limit: 100 }));
   }, [type]);
 
   return (
@@ -37,7 +40,6 @@ export default function ShowsComponent({ type }) {
         borderBottom: '1px solid #dee2e6',
       }}
     >
-      <SearchInput type={type} />
       <Row>
         {
         shows.map((show) => (
@@ -51,8 +53,9 @@ export default function ShowsComponent({ type }) {
                 </CardText>
                 <CardText className="mt-3">{show.description}</CardText>
                 <StarRatings
-                  rating={+show.average_rating}
-                  starRatedColor="gold"
+                  rating={+show.my_rating || +show.average_rating}
+                  starRatedColor={show.my_rating ? 'red' : 'gold'}
+                  changeRating={(value) => onRatingChanged(show.id, value)}
                   numberOfStars={5}
                   name="rating"
                   starDimension="30px"
@@ -65,11 +68,6 @@ export default function ShowsComponent({ type }) {
         ))
       }
       </Row>
-      {pagination.totalPages !== pagination.page && (
-      <Row className="mb-5">
-        <Button onClick={onLoadMore}>Load More</Button>
-      </Row>
-      )}
     </div>
   );
 }
