@@ -1,4 +1,6 @@
-import { React, useEffect, useState } from 'react';
+import {
+  React, useCallback, useEffect, useState,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Card, CardImg, CardBody, CardTitle, CardText, Button, Label, Input,
@@ -13,14 +15,18 @@ export default function HomePage() {
   const [search, setSearch] = useState('');
   const { shows } = useSelector((state) => state.shows);
 
-  const getShowsDebounced = _.debounce(() => {
-    dispatch(getShows({ search }));
-  }, [1000]);
+  const getShowsDebounced = useCallback(_.debounce((searchValue) => {
+    dispatch(getShows({ search: searchValue }));
+  }, 1000), []);
 
   const onInputChange = (e) => {
-    setSearch(e.target.value);
-    if (e.target.value.length > 2) {
-      getShowsDebounced();
+    const { value } = e.target;
+    setSearch(value);
+    if (value.length > 2) {
+      getShowsDebounced(value);
+    }
+    if (value.length === 0) {
+      dispatch(getShows());
     }
   };
 

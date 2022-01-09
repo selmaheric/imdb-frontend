@@ -14,6 +14,7 @@ export const getShows = (params = {}) => async (dispatch) => {
       },
       withCredentials: true,
     });
+
     dispatch({
       type: 'GET_SHOWS_SUCCESS',
       shows: response?.data?.data?.shows,
