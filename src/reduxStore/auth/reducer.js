@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  isAuthenticated: false,
   user: null,
   loading: false,
   error: null,
