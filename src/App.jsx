@@ -12,6 +12,7 @@ import Spinner from './components/Spinner';
 import './App.css';
 
 import { getMe } from './reduxStore/auth/actions';
+import ErrorHandler from './containers/ErrorHandler';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,16 +31,18 @@ function App() {
   }
 
   return (
-    <Container className="App bg-light">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
-      </Routes>
-    </Container>
+    <ErrorHandler>
+      <Container className="App bg-light">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/login"
+            element={<LoginPage />}
+          />
+        </Routes>
+      </Container>
+    </ErrorHandler>
   );
 }
 
