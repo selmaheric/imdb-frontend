@@ -19,7 +19,7 @@ import RateShows from './containers/RateShows';
 
 function App() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());
@@ -39,8 +39,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/rate-movies" element={<RateMovies />} />
-          <Route path="/rate-shows" element={<RateShows />} />
+          <Route path="/rate-movies" element={user ? <RateMovies /> : <LoginPage />} />
+          <Route path="/rate-shows" element={user ? <RateShows /> : <LoginPage />} />
           <Route
             path="/login"
             exact
