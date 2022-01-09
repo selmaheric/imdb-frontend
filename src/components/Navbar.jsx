@@ -5,15 +5,19 @@ import {
 } from 'reactstrap';
 
 export default function NavbarComponent() {
-  const user = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.auth);
 
   return (
-    <Navbar color="light" expand="md" light>
+    <Navbar color="light border-bottom" expand="md" light>
       <NavbarBrand href="/">IMDB</NavbarBrand>
       <Nav className="ml-auto" navbar>
         {user && (
         <NavItem>
-          <NavLink>Selma</NavLink>
+          <NavLink>
+            {user.first_name}
+            {' '}
+            {user.last_name}
+          </NavLink>
         </NavItem>
         ) }
         {user && (

@@ -7,9 +7,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <div>Login page</div>
-      <Button onClick={onLogin}>Uloguj se</Button>
+    <div className="d-flex align-items-center justify-content-center h-100 w-100">
+      <Button color="primary" onClick={onLogin}>Login With GOOGLE</Button>
     </div>
   );
 }

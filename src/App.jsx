@@ -1,37 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import HomePage from './containers/HomePage';
 import LoginPage from './containers/LoginPage';
 
 import Navbar from './components/Navbar';
+import Spinner from './components/Spinner';
 
 import './App.css';
 
-import { loginUser } from './reduxStore/auth/actions';
+import { getMe } from './reduxStore/auth/actions';
 
 function App() {
   const dispatch = useDispatch();
-
-  const [user, setUser] = useState(null);
+  const { loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(loginUser());
+    dispatch(getMe());
   }, []);
 
+  if (loading) {
+    return (
+      <Container className="App bg-light">
+        <Spinner />
+      </Container>
+    );
+  }
+
   return (
-    <Container className="App">
+    <Container className="App bg-light">
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage user={user} setUser={setUser} />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={user ? <Navigate to="/" /> : <LoginPage />}
+          element={<LoginPage />}
         />
       </Routes>
-
     </Container>
   );
 }
