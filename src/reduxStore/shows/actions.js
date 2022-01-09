@@ -53,10 +53,12 @@ export const addRating = ({ rating, id }) => async (dispatch) => {
       },
     );
 
-    console.log(response);
-
     dispatch({
       type: 'ADD_RATING_SUCCESS',
+      show: {
+        ...response.data.data.show,
+        my_rating: rating,
+      },
     });
   } catch (error) {
     dispatch({

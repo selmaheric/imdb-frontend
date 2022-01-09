@@ -97,8 +97,8 @@ export default function HomePage() {
                 <CardTitle><h3>{show.title}</h3></CardTitle>
                 <CardText className="mt-3">{show.description}</CardText>
                 <StarRatings
-                  rating={+show.average_rating}
-                  starRatedColor="gold"
+                  rating={+show.my_rating || +show.average_rating}
+                  starRatedColor={show.my_rating ? 'red' : 'gold'}
                   changeRating={(value) => onRatingChanged(show.id, value)}
                   numberOfStars={5}
                   name="rating"

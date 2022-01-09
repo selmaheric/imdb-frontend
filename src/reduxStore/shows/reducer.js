@@ -28,6 +28,22 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: action.error,
       };
 
+    case 'ADD_RATING_SUCCESS':
+      return {
+        ...state,
+        shows: state.shows.map((s) => {
+          if (s.id === action.show.id) {
+            return {
+              ...action.show,
+            };
+          }
+          return {
+            ...s,
+          };
+        }),
+        error: action.error,
+      };
+
     default:
       return state;
   }
