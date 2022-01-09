@@ -1,61 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Card,
   CardImg,
   CardBody,
   CardTitle,
   CardText,
-  Label,
-  Input,
   Row,
   Col,
 } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
 
-import { addRating, cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
+import { addRating, getShows } from '../reduxStore/shows/actions';
+import SearchInput from './SearchInput';
 
 export default function ShowsComponent({ type }) {
   const dispatch = useDispatch();
 
-  const [search, setSearch] = useState('');
-  const [byPhrase, setByPhrase] = useState(false);
-
   const { shows } = useSelector((state) => state.shows);
-
-  const getShowsDebounced = useCallback(_.debounce(({
-    searchValue,
-    searchByPhrase,
-  }) => {
-    dispatch(cancelPreviousRequest());
-    dispatch(getShows({
-      search: searchValue,
-      searchByPhrase,
-    }));
-  }, 1000), []);
-
-  const onInputChange = (e) => {
-    const { value } = e.target;
-    setSearch(value);
-    if (value.length > 2) {
-      getShowsDebounced({
-        searchValue: value,
-        searchByPhrase: byPhrase,
-      });
-    }
-    if (value.length === 0) {
-      getShowsDebounced({});
-    }
-  };
-
-  const onCheckboxChanged = () => {
-    setByPhrase(!byPhrase);
-    dispatch(getShows({
-      search,
-      searchByPhrase: !byPhrase,
-    }));
-  };
 
   const onRatingChanged = (id, rating) => {
     dispatch(addRating({ id, rating }));
@@ -74,33 +36,7 @@ export default function ShowsComponent({ type }) {
         borderBottom: '1px solid #dee2e6',
       }}
     >
-      <Label
-        className="me-sm-2"
-        for="searchInput"
-      >
-        Search
-      </Label>
-      <Input
-        id="searchInput"
-        name="search"
-        placeholder="Forrest Gump"
-        type="text"
-        onChange={onInputChange}
-        value={search}
-      />
-      <Label
-        className="me-sm-2"
-        for="searchInput"
-      >
-        Search by phrase
-      </Label>
-      <Input
-        id="searchByPhrate"
-        name="phrate"
-        type="checkbox"
-        onChange={onCheckboxChanged}
-        checked={byPhrase}
-      />
+      <SearchInput type={type} />
       <Row>
         {
         shows.map((show) => (
