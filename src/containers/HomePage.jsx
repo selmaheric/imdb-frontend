@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Card, CardImg, CardBody, CardTitle, CardText, Button, Label, Input,
+  Card, CardImg, CardBody, CardTitle, CardText, Button, Label, Input, Row, Col,
 } from 'reactstrap';
 import _ from 'lodash';
 
@@ -51,19 +51,23 @@ export default function HomePage() {
         onChange={onInputChange}
         value={search}
       />
-
-      {
+      <Row>
+        {
         shows.map((show) => (
-          <Card className="mb-5 mt-5" key={show.id}>
-            <CardImg top width="100%" src={show.cover_image} alt={show.title} />
-            <CardBody>
-              <CardTitle>{show.title}</CardTitle>
-              <CardText>{show.description}</CardText>
-              <Button>Button</Button>
-            </CardBody>
-          </Card>
+          <Col xs={12} md={4} lg={3}>
+            <Card className="mb-5 mt-5" key={show.id}>
+              <CardImg top width="100%" src={`../assets/posters/${show.cover_image}`} alt={show.title} />
+              <CardBody>
+                <CardTitle>{show.title}</CardTitle>
+                <CardText>{show.description}</CardText>
+                <Button>Button</Button>
+              </CardBody>
+            </Card>
+          </Col>
         ))
       }
+      </Row>
+
     </div>
   );
 }
