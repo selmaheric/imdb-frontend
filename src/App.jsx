@@ -13,6 +13,7 @@ import './App.css';
 
 import { getMe } from './reduxStore/auth/actions';
 import ErrorHandler from './containers/ErrorHandler';
+import LoginError from './containers/LoginError';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,8 +39,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route
             path="/login"
+            exact
             element={<LoginPage />}
           />
+          <Route path="/login/error" element={<LoginError />} />
         </Routes>
       </Container>
     </ErrorHandler>
