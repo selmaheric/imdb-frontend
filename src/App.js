@@ -7,12 +7,16 @@ import LoginPage from "./containers/LoginPage";
 
 import './App.css';
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser  } from './reduxStore/auth/actions';
 
 function App() {
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    dispatch(loginUser())
     const getUser = async () => {
       const response = await axios.get('http://localhost:3001/users/me', {
         withCredentials: true
