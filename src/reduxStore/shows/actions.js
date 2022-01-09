@@ -1,11 +1,17 @@
 import axios from '../../utils/axios';
 
-export const getShows = () => async (dispatch) => {
+export const getShows = (params = {}) => async (dispatch) => {
   try {
     dispatch({
       type: 'GET_SHOWS_REQUEST',
     });
-    const response = await axios.get('/shows?type=movie', {
+
+    const { search } = params;
+    const response = await axios.get('/shows', {
+      params: {
+        type: 'movie',
+        search,
+      },
       withCredentials: true,
     });
     dispatch({
