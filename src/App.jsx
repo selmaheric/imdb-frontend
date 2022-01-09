@@ -6,6 +6,8 @@ import { Container } from 'reactstrap';
 import HomePage from './containers/HomePage';
 import LoginPage from './containers/LoginPage';
 
+import Navbar from './components/Navbar';
+
 import './App.css';
 
 import { loginUser } from './reduxStore/auth/actions';
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <Container className="App">
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage user={user} setUser={setUser} />} />
         <Route
@@ -28,6 +31,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
       </Routes>
+
     </Container>
   );
 }
