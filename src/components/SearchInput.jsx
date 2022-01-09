@@ -66,7 +66,7 @@ export default function SearchInput({ type }) {
         <Input
           id="searchInput"
           name="search"
-          placeholder="Forrest Gump"
+          placeholder={type === 'movie' ? 'Forrest Gump' : 'Friends'}
           type="text"
           onChange={onInputChange}
           value={search}
