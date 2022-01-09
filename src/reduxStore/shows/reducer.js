@@ -6,19 +6,26 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'FETCH_SHOWS_REQUEST':
+    case 'GET_SHOWS_REQUEST':
       return {
         ...state,
+        loading: true,
+        error: null,
       };
 
-    case 'FETCH_SHOWS_SUCCESS':
+    case 'GET_SHOWS_SUCCESS':
       return {
         ...state,
+        loading: false,
+        shows: action.shows,
+        error: null,
       };
 
-    case 'FETCH_SHOWS_ERROR':
+    case 'GET_SHOWS_ERROR':
       return {
         ...state,
+        loading: false,
+        error: action.error,
       };
 
     default:
