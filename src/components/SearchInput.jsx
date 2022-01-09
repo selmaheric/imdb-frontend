@@ -49,7 +49,10 @@ export default function SearchInput({ type }) {
     }
   };
 
-  useEffect(() => setSearch(''), [type]);
+  useEffect(() => {
+    setSearch('');
+    setByPhrase(false);
+  }, [type]);
 
   return (
     <div>
