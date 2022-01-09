@@ -44,6 +44,15 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: action.error,
       };
 
+    case 'CLEAR_RATINGS':
+      return {
+        ...state,
+        shows: state.shows.map((show) => ({
+          ...show,
+          my_rating: null,
+        })),
+      };
+
     default:
       return state;
   }
