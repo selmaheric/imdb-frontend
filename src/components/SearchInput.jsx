@@ -43,7 +43,7 @@ export default function SearchInput({ type }) {
     if (search.length > 2) {
       dispatch(getShows({
         type,
-        search,
+        search: search.trim(),
         searchByPhrase: !byPhrase,
       }));
     }
