@@ -27,7 +27,7 @@ export default function ShowsComponent({ type }) {
     dispatch(getMoreShows({
       type,
       search: search && search.trim(),
-      byPhrase,
+      searchByPhrase: byPhrase,
     }));
   };
 
