@@ -1,5 +1,5 @@
 import { React } from 'react';
-import { Button } from 'reactstrap';
+import GooogleButton from '../components/GoogleButton';
 
 export default function LoginPage() {
   const onLogin = () => {
@@ -8,7 +8,7 @@ export default function LoginPage() {
 
   return (
     <div className="d-flex align-items-center justify-content-center h-100 w-100">
-      <Button color="primary" onClick={onLogin}>Login With GOOGLE</Button>
+      <GooogleButton onClick={onLogin} />
     </div>
   );
 }
