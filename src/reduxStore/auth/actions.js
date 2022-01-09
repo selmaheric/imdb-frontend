@@ -1,15 +1,8 @@
 import config from '../../config';
 import axios from '../../utils/axios';
 
-export const loginUser = () => async (dispatch) => {
-  try {
-    window.open(`${config.REACT_APP_API_URL}/auth/google`, '_self');
-  } catch (error) {
-    dispatch({
-      type: 'LOGIN_ERROR',
-      payload: error,
-    });
-  }
+export const loginUser = () => async () => {
+  window.open(`${config.REACT_APP_API_URL}/auth/google`, '_self');
 };
 
 export const getMe = () => async (dispatch) => {
@@ -25,10 +18,9 @@ export const getMe = () => async (dispatch) => {
       user: response?.data?.data?.user,
     });
   } catch (error) {
-    const { type } = error.response.data;
     dispatch({
       type: 'GET_ME_ERROR',
-      payload: type === 'AUTH_INVALID' ? null : error.response.data,
+      payload: error.response && error.response.data,
     });
   }
 };

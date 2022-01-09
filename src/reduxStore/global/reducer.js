@@ -5,7 +5,6 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'GLOBAL_ERROR_500':
-      console.log('ok');
       return {
         ...state,
         error500: true,

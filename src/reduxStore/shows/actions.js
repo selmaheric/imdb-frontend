@@ -32,10 +32,9 @@ export const getShows = (params = {}) => async (dispatch) => {
     if (isCancel(error)) {
       console.log('Request canceled', error.message);
     } else {
-      const { type } = error.response.data;
       dispatch({
         type: 'GET_SHOWS_ERROR',
-        payload: type === 'AUTH_INVALID' ? null : error.response.data,
+        error: error.response && error.response.data,
       });
     }
   }
@@ -63,6 +62,7 @@ export const addRating = ({ rating, id }) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'ADD_RATING_ERROR',
+      error: error.response && error.response.data,
     });
   }
 };
