@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Container } from "reactstrap";
-import axios from "axios";
 
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
@@ -17,14 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loginUser())
-    const getUser = async () => {
-      const response = await axios.get('http://localhost:3001/users/me', {
-        withCredentials: true
-      });
-      setUser(response.data)
-    };
-    getUser();
-  }, []);
+    }, []);
 
   return (
     <Container className="App">

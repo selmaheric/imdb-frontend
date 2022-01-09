@@ -1,7 +1,14 @@
+import axios from '../../utils/axios';
+
 export const loginUser = () => async (dispatch) => {
   try {
-    console.log(1);
-    dispatch({ type: 'LOGIN' });
+    const response = await axios.get('/users/me', {
+        withCredentials: true
+      });
+    dispatch({
+      type: 'LOGIN',
+      user: response?.data?.user
+    });
   } catch (error) {
     dispatch({
       type: 'LOGIN_ERROR',
