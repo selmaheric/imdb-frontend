@@ -32,3 +32,12 @@ export const getMe = () => async (dispatch) => {
     });
   }
 };
+
+export const logout = () => async (dispatch) => {
+  await axios.get('/auth/logout', {
+    withCredentials: true,
+  });
+  dispatch({
+    type: 'LOGOUT',
+  });
+};

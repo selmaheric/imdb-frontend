@@ -1,15 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink,
 } from 'reactstrap';
+import { logout } from '../reduxStore/auth/actions';
 
 export default function NavbarComponent() {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  const onLogout = async () => {
+    dispatch(logout());
+  };
 
   return (
     <Navbar color="light border-bottom" expand="md" light>
-      <NavbarBrand href="/">IMDB</NavbarBrand>
+      <NavbarBrand tag={Link} to="/">IMDB</NavbarBrand>
       <Nav className="ml-auto" navbar>
         {user && (
         <NavItem>
@@ -22,12 +29,12 @@ export default function NavbarComponent() {
         ) }
         {user && (
         <NavItem>
-          <NavLink>Logout</NavLink>
+          <NavLink tag={Link} to="#" onClick={onLogout}>Logout</NavLink>
         </NavItem>
         ) }
         {!user && (
         <NavItem>
-          <NavLink href="/login">Login</NavLink>
+          <NavLink tag={Link} to="/login">Login</NavLink>
         </NavItem>
         )}
       </Nav>
