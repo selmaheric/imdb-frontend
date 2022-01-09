@@ -6,8 +6,6 @@ import _ from 'lodash';
 import { cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
 
 export default function SearchInput({ type }) {
-  console.log({ type });
-
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');

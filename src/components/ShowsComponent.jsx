@@ -7,17 +7,18 @@ import {
   CardText,
   Row,
   Col,
+  Button,
 } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addRating, getShows } from '../reduxStore/shows/actions';
+import { addRating, getMoreShows, getShows } from '../reduxStore/shows/actions';
 import SearchInput from './SearchInput';
 
 export default function ShowsComponent({ type }) {
   const dispatch = useDispatch();
 
-  const { shows } = useSelector((state) => state.shows);
+  const { shows, pagination } = useSelector((state) => state.shows);
   const { user } = useSelector((state) => state.auth);
 
   const onRatingChanged = (id, rating) => {
@@ -26,6 +27,10 @@ export default function ShowsComponent({ type }) {
     } else {
       window.alert('If you want to rate a movie or a tv show please login first!');
     }
+  };
+
+  const onLoadMore = () => {
+    dispatch(getMoreShows({ type }));
   };
 
   useEffect(() => {
@@ -67,6 +72,11 @@ export default function ShowsComponent({ type }) {
         ))
       }
       </Row>
+      {pagination.totalPages !== pagination.page && (
+      <Row className="mb-5">
+        <Button onClick={onLoadMore}>Load More</Button>
+      </Row>
+      )}
     </div>
   );
 }
