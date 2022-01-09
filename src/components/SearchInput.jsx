@@ -1,15 +1,18 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Label, Input } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 
 import { cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
 
-export default function SearchInput({ type }) {
+export default function SearchInput({
+  type,
+  search,
+  byPhrase,
+  setSearch,
+  setByPhrase,
+}) {
   const dispatch = useDispatch();
-
-  const [search, setSearch] = useState('');
-  const [byPhrase, setByPhrase] = useState(false);
 
   const getShowsDebounced = useCallback(_.debounce(({
     searchValue,

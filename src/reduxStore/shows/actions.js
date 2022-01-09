@@ -59,6 +59,7 @@ export const getMoreShows = (params = {}) => async (dispatch, getState) => {
     const { pagination } = state.shows;
 
     const { type, search, searchByPhrase } = params;
+    console.log(params);
     const response = await axios.get('/shows', {
       params: {
         type,

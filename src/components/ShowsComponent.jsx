@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardImg,
@@ -18,10 +18,17 @@ import SearchInput from './SearchInput';
 export default function ShowsComponent({ type }) {
   const dispatch = useDispatch();
 
+  const [search, setSearch] = useState('');
+  const [byPhrase, setByPhrase] = useState(false);
+
   const { shows, pagination } = useSelector((state) => state.shows);
 
   const onLoadMore = () => {
-    dispatch(getMoreShows({ type }));
+    dispatch(getMoreShows({
+      type,
+      search: search && search.trim(),
+      byPhrase,
+    }));
   };
 
   useEffect(() => {
@@ -37,7 +44,13 @@ export default function ShowsComponent({ type }) {
         borderBottom: '1px solid #dee2e6',
       }}
     >
-      <SearchInput type={type} />
+      <SearchInput
+        search={search}
+        setSearch={setSearch}
+        byPhrase={byPhrase}
+        setByPhrase={setByPhrase}
+        type={type}
+      />
       <Row>
         {
         shows.map((show) => (
