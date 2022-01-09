@@ -13,11 +13,11 @@ export const getShows = (params = {}) => async (dispatch) => {
       type: 'GET_SHOWS_REQUEST',
     });
 
-    const { search, searchByPhrase } = params;
+    const { type, search, searchByPhrase } = params;
     const response = await axios.get('/shows', {
       cancelToken: source.token,
       params: {
-        type: 'movie',
+        type,
         search,
         searchByPhrase,
       },
