@@ -5,4 +5,6 @@ const axiosInstance = axios.create({
   baseURL: config.REACT_APP_API_URL,
 });
 
+export const { CancelToken, isCancel } = axios;
+
 export default axiosInstance;

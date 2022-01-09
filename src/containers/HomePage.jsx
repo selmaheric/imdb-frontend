@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import _ from 'lodash';
 
-import { getShows } from '../reduxStore/shows/actions';
+import { cancelPreviousRequest, getShows } from '../reduxStore/shows/actions';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ export default function HomePage() {
   const { shows } = useSelector((state) => state.shows);
 
   const getShowsDebounced = useCallback(_.debounce((searchValue) => {
+    dispatch(cancelPreviousRequest());
     dispatch(getShows({ search: searchValue }));
   }, 1000), []);
 
@@ -26,7 +27,7 @@ export default function HomePage() {
       getShowsDebounced(value);
     }
     if (value.length === 0) {
-      dispatch(getShows());
+      getShowsDebounced();
     }
   };
 

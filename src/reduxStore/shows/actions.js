@@ -1,4 +1,11 @@
-import axios from '../../utils/axios';
+import axios, { CancelToken, isCancel } from '../../utils/axios';
+
+let source = CancelToken.source();
+
+export const cancelPreviousRequest = () => async () => {
+  source.cancel('Operation canceled by other request.');
+  source = CancelToken.source();
+};
 
 export const getShows = (params = {}) => async (dispatch) => {
   try {
@@ -8,6 +15,7 @@ export const getShows = (params = {}) => async (dispatch) => {
 
     const { search } = params;
     const response = await axios.get('/shows', {
+      cancelToken: source.token,
       params: {
         type: 'movie',
         search,
@@ -20,10 +28,14 @@ export const getShows = (params = {}) => async (dispatch) => {
       shows: response?.data?.data?.shows,
     });
   } catch (error) {
-    const { type } = error.response.data;
-    dispatch({
-      type: 'GET_SHOWS_ERROR',
-      payload: type === 'AUTH_INVALID' ? null : error.response.data,
-    });
+    if (isCancel(error)) {
+      console.log('Request canceled', error.message);
+    } else {
+      const { type } = error.response.data;
+      dispatch({
+        type: 'GET_SHOWS_ERROR',
+        payload: type === 'AUTH_INVALID' ? null : error.response.data,
+      });
+    }
   }
 };
