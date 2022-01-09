@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  BrowserRouter as Router, Routes, Route, Navigate,
-} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import HomePage from './containers/HomePage';
@@ -23,15 +21,13 @@ function App() {
 
   return (
     <Container className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage user={user} setUser={setUser} />} />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <LoginPage />}
-          />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<HomePage user={user} setUser={setUser} />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" /> : <LoginPage />}
+        />
+      </Routes>
     </Container>
   );
 }
