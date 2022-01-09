@@ -55,6 +55,9 @@ export default function ShowsComponent({ type }) {
               <CardImg top width="100%" src={`../assets/posters/${show.cover_image}`} alt={show.title} />
               <CardBody>
                 <CardTitle><h3>{show.title}</h3></CardTitle>
+                <CardText className="mt-3">
+                  {`Release date: ${show.release_date}`}
+                </CardText>
                 <CardText className="mt-3">{show.description}</CardText>
                 <StarRatings
                   rating={+show.my_rating || +show.average_rating}

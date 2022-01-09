@@ -60,6 +60,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         shows: state.shows.map((s) => {
           if (s.id === action.show.id) {
             return {
+              ...s,
               ...action.show,
             };
           }
